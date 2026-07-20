@@ -1,0 +1,127 @@
+/* ============================================
+   VOID Noir Waybar - Dark Purple Minimal
+   ============================================ */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 11px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(10, 10, 15, 0.85);
+    color: #e2e8f0;
+    border-radius: 8px;
+    border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+#workspaces {
+    padding: 0 4px;
+    margin: 3px;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    margin: 1px 1px;
+    border-radius: 4px;
+    color: #4a5568;
+    background: transparent;
+    border: none;
+    min-width: 14px;
+    transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+    color: #e2e8f0;
+    background: rgba(124, 58, 237, 0.25);
+    box-shadow: 0 0 8px rgba(124, 58, 237, 0.15);
+}
+
+#workspaces button:hover {
+    background: rgba(124, 58, 237, 0.12);
+    color: #c4b5fd;
+}
+
+#custom-void-menu {
+    padding: 0 10px;
+    margin: 3px;
+    border-radius: 6px;
+    color: #0a0a0f;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    font-weight: bold;
+    font-size: 10px;
+    letter-spacing: 1px;
+    box-shadow: 0 0 12px rgba(124, 58, 237, 0.3);
+}
+
+#custom-void-menu:hover {
+    box-shadow: 0 0 18px rgba(124, 58, 237, 0.5);
+}
+
+#clock {
+    padding: 0 10px;
+    margin: 3px 0;
+    color: #c4b5fd;
+    font-weight: bold;
+}
+
+#custom-void-power {
+    padding: 0 8px;
+    margin: 3px;
+    border-radius: 4px;
+    color: #f472b6;
+    transition: all 0.2s ease;
+}
+
+#custom-void-power:hover {
+    background: rgba(244, 114, 182, 0.12);
+    box-shadow: 0 0 10px rgba(244, 114, 182, 0.2);
+    color: #f9a8d4;
+}
+
+#network {
+    padding: 0 6px;
+    margin: 3px 2px;
+    border-radius: 4px;
+    color: #a855f7;
+}
+
+#battery {
+    padding: 0 6px;
+    margin: 3px 2px;
+    border-radius: 4px;
+    color: #34d399;
+}
+
+#battery.warning {
+    color: #fbbf24;
+}
+
+#battery.critical {
+    color: #f87171;
+    animation: void-blink 1.5s ease-in-out infinite;
+}
+
+@keyframes void-blink {
+    from { color: #f87171; }
+    to { color: #4a5568; }
+}
+
+#pulseaudio {
+    padding: 0 6px;
+    margin: 3px 2px;
+    border-radius: 4px;
+    color: #c4b5fd;
+}
+
+#pulseaudio.muted {
+    color: #4a5568;
+}
+
+tooltip {
+    background: rgba(10, 10, 15, 0.95);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    border-radius: 6px;
+    color: #e2e8f0;
+    padding: 8px;
+}

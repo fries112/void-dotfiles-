@@ -1,0 +1,46 @@
+# ============================================
+# Ghostty - VOID Noir Dark Purple
+# ============================================
+
+font-family = JetBrainsMono Nerd Font
+font-size = 12
+font-thicken = true
+
+background-opacity = 0.88
+background-blur-radius = 16
+
+window-decoration = false
+window-padding-x = 12
+window-padding-y = 8
+
+cursor-style = block
+cursor-style-blink = true
+
+mouse-hide-while-typing = true
+copy-on-select = clipboard
+
+background = #0a0a0f
+foreground = #e2e8f0
+
+palette = 0=#0a0a0f
+palette = 1=#f472b6
+palette = 2=#34d399
+palette = 3=#fbbf24
+palette = 4=#a855f7
+palette = 5=#c4b5fd
+palette = 6=#67e8f9
+palette = 7=#e2e8f0
+palette = 8=#4a5568
+palette = 9=#f472b6
+palette = 10=#34d399
+palette = 11=#fbbf24
+palette = 12=#a855f7
+palette = 13=#c4b5fd
+palette = 14=#67e8f9
+palette = 15=#f1f5f9
+
+selection-background = #7c3aed
+selection-foreground = #e2e8f0
+
+cursor-color = #a855f7
+cursor-text = #0a0a0f

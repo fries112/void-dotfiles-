@@ -1,0 +1,38 @@
+[global]
+font = JetBrainsMono Nerd Font 11
+padding = 12
+margin = 10
+border-radius = 8
+background-color = rgba(10, 10, 15, 0.95)
+text-color = #e2e8f0
+border-color = rgba(124, 58, 237, 0.4)
+border-width = 1
+width = 340
+height = 80
+max-visible = 5
+layer = overlay
+anchor = top-right
+fade-in = 0.2
+fade-out = 0.2
+default-timeout = 4000
+ignore-transient = true
+
+[app-name]
+font = JetBrainsMono Nerd Font Bold 12
+color = #a855f7
+
+[body]
+font = JetBrainsMono Nerd Font 11
+color = #c4b5fd
+
+[summary]
+font = JetBrainsMono Nerd Font Bold 11
+color = #e2e8f0
+
+[action]
+font = JetBrainsMono Nerd Font 11
+color = #a855f7
+
+[close]
+font = JetBrainsMono Nerd Font 11
+color = #f472b6

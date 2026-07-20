@@ -1,0 +1,85 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 28,
+    "spacing": 0,
+    "margin-top": 4,
+    "margin-left": 8,
+    "margin-right": 8,
+
+    "modules-left": ["custom/void-menu", "hyprland/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/void-power", "network", "pulseaudio", "battery"],
+
+    "custom/void-menu": {
+        "format": "  VOID ",
+        "on-click": "~/.config/hypr/void-menu.sh",
+        "tooltip": false
+    },
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": ""
+        },
+        "active-only": false,
+        "all-outputs": false,
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "sort-by-number": true,
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": []
+        }
+    },
+
+    "clock": {
+        "format": " {:%H:%M}",
+        "format-alt": " {:%a, %b %d}",
+        "interval": 30,
+        "on-click": "gnome-calendar"
+    },
+
+    "custom/void-power": {
+        "format": " ",
+        "on-click": "~/.config/hypr/void-power.sh",
+        "tooltip": false
+    },
+
+    "network": {
+        "format-wifi": " {signalStrength}%",
+        "format-ethernet": "  ",
+        "format-disconnected": "  ",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+        "on-click": "nm-connection-editor"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " ",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip-format": "{timeTo}\n{capacity}% - {power}W",
+        "on-click": "powerstat"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "  ",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol",
+        "scroll-step": 5
+    }
+}

@@ -1,0 +1,68 @@
+format = """\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$rust\
+$python\
+$cmd_duration\
+$line_break\
+$character"""
+
+[character]
+success_symbol = "[❯](bold #a855f7)"
+error_symbol = "[❯](bold #f472b6)"
+
+[username]
+show_always = false
+style_user = "bold #c4b5fd"
+style_root = "bold #f472b6"
+format = "[$user]($style)@"
+
+[hostname]
+ssh_only = true
+style = "bold #a855f7"
+format = "[$hostname]($style) "
+
+[directory]
+truncation_length = 3
+truncation_symbol = "…/"
+style = "bold #7c3aed"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+[directory.read_only]
+format = "🔒"
+
+[git_branch]
+symbol = ""
+style = "bold #c4b5fd"
+format = "[$symbol $branch]($style) "
+
+[git_status]
+style = "bold #f472b6"
+format = "[$all_status$ahead_behind]($style) "
+
+[nodejs]
+symbol = ""
+style = "bold #a855f7"
+format = "[$symbol $version]($style) "
+
+[rust]
+symbol = ""
+style = "bold #c4b5fd"
+format = "[$symbol $version]($style) "
+
+[python]
+symbol = ""
+style = "bold #7c3aed"
+format = "[$symbol $version]($style) "
+
+[cmd_duration]
+min_time = 2000
+style = "bold #4a5568"
+format = "[$duration]($style) "
+
+[line_break]
+disabled = false
