@@ -14,14 +14,16 @@ W='\033[38;2;226;232;240m'
 D='\033[38;2;74;85;104m'
 R='\033[0m'
 
+# Bootstrap: make sure git is available for cloning
+if ! command -v git >/dev/null 2>&1; then
+    echo -e "${PK}▸${R} Installing git..."
+    sudo pacman -Sy --noconfirm git
+fi
+
 # When piped from curl, $0 isn't a file — clone to temp dir
 if [ -f "$0" ]; then
     DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 else
-    command -v git >/dev/null || {
-        echo -e "${PK}▸${R} git is required but not installed. Run: sudo pacman -S git"
-        exit 1
-    }
     DOTFILES_DIR="$(mktemp -d)"
     echo -e "${PK}▸${R} Downloading dotfiles..."
     git clone --depth 1 https://github.com/fries112/void-dotfiles-.git "$DOTFILES_DIR"
@@ -146,13 +148,17 @@ mkdir -p "$HOME/.config/fish/functions"
 mkdir -p "$HOME/Pictures/wallpapers"
 mkdir -p "$HOME/Videos/Recordings"
 
-# Auto-detect monitor
-MONITOR=$(hyprctl monitors -j 2>/dev/null | jq -r '.[0].name' 2>/dev/null || echo "")
-if [ -n "$MONITOR" ] && [ "$MONITOR" != "null" ]; then
-    echo "monitor = $MONITOR, preferred, auto, 1" > "$HOME/.config/hypr/monitors.conf"
-    echo -e "  ${D}→${R} Detected monitor: $MONITOR"
+# Auto-detect monitor (only works if Hyprland is running)
+if command -v hyprctl >/dev/null 2>&1 && hyprctl monitors -j >/dev/null 2>&1; then
+    MONITOR=$(hyprctl monitors -j 2>/dev/null | jq -r '.[0].name' 2>/dev/null || echo "")
+    if [ -n "$MONITOR" ] && [ "$MONITOR" != "null" ]; then
+        echo "monitor = $MONITOR, preferred, auto, 1" > "$HOME/.config/hypr/monitors.conf"
+        echo -e "  ${D}→${R} Detected monitor: $MONITOR"
+    else
+        echo -e "  ${D}→${R} No monitor detected, using auto config"
+    fi
 else
-    echo -e "  ${D}→${R} No monitor detected, using auto config"
+    echo -e "  ${D}→${R} Hyprland not running, using auto monitor config"
 fi
 
 # ============================================
