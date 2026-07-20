@@ -21,7 +21,7 @@ echo "  - Other bloat packages"
 echo "  - Optimize sysctl for low RAM"
 echo "  - Set up ZRAM (compressed swap)"
 echo ""
-read -p "Continue? (y/n): " confirm
+read -p "Continue? (y/n): " confirm < /dev/tty
 if [[ "$confirm" != "y" ]]; then
     echo "Aborted."
     exit 0

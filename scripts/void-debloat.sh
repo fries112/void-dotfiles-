@@ -8,7 +8,7 @@ echo ""
 echo "This will remove KDE Plasma packages you don't need with Hyprland."
 echo "KEEPING: polkit-kde-agent, kglobalacceld, kdeconnect, bluedevil"
 echo ""
-read -p "Continue? (y/n): " confirm
+read -p "Continue? (y/n): " confirm < /dev/tty
 if [[ "$confirm" != "y" ]]; then
     echo "Aborted."
     exit 0

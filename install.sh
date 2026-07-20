@@ -58,7 +58,7 @@ echo -e "${PK}▸${R} This will install VOID Noir dotfiles on your system."
 echo -e "${PK}▸${R} Packages will be installed via pacman."
 echo -e "${PK}▸${R} Existing configs in ~/.config/ will be backed up."
 echo ""
-read -p "Continue? [y/N] " -n 1 -r
+read -p "Continue? [y/N] " -n 1 -r < /dev/tty
 echo ""
 [[ $REPLY =~ ^[Yy]$ ]] || exit 0
 
@@ -271,7 +271,7 @@ echo -e "  ${PK}▸${R} ${LT}5${R}  KDE nuclear (removes ALL KDE/Plasma packages
 echo -e "  ${PK}▸${R} ${LT}6${R}  Apply ALL optimizations"
 echo -e "  ${PK}▸${R} ${LT}s${R}  Skip (just dotfiles, no optimizations)"
 echo ""
-read -p "Choose [1-6/s]: " opt_choice
+read -p "Choose [1-6/s]: " opt_choice < /dev/tty
 
 run_opt() {
     local script="$1"
