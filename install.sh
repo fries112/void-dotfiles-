@@ -18,11 +18,13 @@ R='\033[0m'
 if [ -f "$0" ]; then
     DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 else
-    DOTFILES_DIR="/tmp/void-dotfiles"
+    command -v git >/dev/null || {
+        echo -e "${PK}▸${R} git is required but not installed. Run: sudo pacman -S git"
+        exit 1
+    }
+    DOTFILES_DIR="$(mktemp -d)"
     echo -e "${PK}▸${R} Downloading dotfiles..."
-    rm -rf "$DOTFILES_DIR"
-    git clone --depth 1 https://github.com/fries112/void-dotfiles-.git "$DOTFILES_DIR" 2>/dev/null || \
-    git clone --depth 1 https://github.com/fries112/void-dotfiles- "$DOTFILES_DIR" 2>/dev/null
+    git clone --depth 1 https://github.com/fries112/void-dotfiles-.git "$DOTFILES_DIR"
 fi
 
 echo -e "${P}"
