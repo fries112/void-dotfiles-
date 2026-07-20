@@ -4,16 +4,15 @@
 echo "[VOID] Optimizing system for Roblox..."
 
 # Kill unnecessary services to free RAM
-systemctl --user stop mako 2>/dev/null
-systemctl --user stop waybar 2>/dev/null
+killall mako 2>/dev/null
+killall waybar 2>/dev/null
 
-# Drop caches to free up memory
-sync
-echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1
+# Drop caches to free up memory (polkit handles auth)
+pkexec sh -c 'sync && echo 3 > /proc/sys/vm/drop_caches' 2>/dev/null || true
 
 # Set CPU governor to performance (if available)
 for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
-    echo performance | sudo tee "$cpu" > /dev/null 2>&1
+    pkexec sh -c "echo performance > $cpu" 2>/dev/null || true
 done
 
 # Disable compositor animations during gaming
@@ -32,12 +31,15 @@ done
 
 echo "[VOID] Roblox closed. Restoring system..."
 hyprctl keyword decoration:enabled true 2>/dev/null
-systemctl --user start waybar 2>/dev/null
-systemctl --user start mako 2>/dev/null
+
+# Restart waybar and mako
+waybar &>/dev/null &
+mako &>/dev/null &
+disown
 
 # Restore CPU governor
 for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
-    echo powersave | sudo tee "$cpu" > /dev/null 2>&1
+    pkexec sh -c "echo powersave > $cpu" 2>/dev/null || true
 done
 
 echo "[VOID] System restored."

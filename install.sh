@@ -77,7 +77,7 @@ PACKAGES=(
     # Bar & menus
     waybar fuzzel
     # Notifications
-    mako
+    mako libnotify
     # Terminal
     ghostty
     # Shell
@@ -100,17 +100,34 @@ PACKAGES=(
     bluez bluez-utils blueman
     # Audio
     pipewire pipewire-pulse wireplumber pavucontrol
+    # Media keys
+    playerctl
     # Screen recording
     gpu-screen-recorder
     # Polkit
     polkit-kde-agent
+    # Qt theming
+    qt6ct
+    # Flatpak (for Sober/Roblox)
+    flatpak
     # Fonts
     ttf-jetbrains-mono-nerd
+    # Cache cleanup
+    pacman-contrib
     # Misc
-    socat jq
+    jq
 )
 
 sudo pacman -Syu --needed --noconfirm "${PACKAGES[@]}"
+
+# Enable system services
+sudo systemctl enable --now NetworkManager 2>/dev/null || true
+sudo systemctl enable --now bluetooth 2>/dev/null || true
+
+# Enable user audio services
+systemctl --user enable --now pipewire 2>/dev/null || true
+systemctl --user enable --now pipewire-pulse 2>/dev/null || true
+systemctl --user enable --now wireplumber 2>/dev/null || true
 
 # ============================================
 # STEP 2: Backup existing configs

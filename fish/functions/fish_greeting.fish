@@ -47,7 +47,7 @@ function fish_greeting
     echo -e " $WHITE done$RESET"
     echo ""
     echo -e "  $DIM ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓$RESET"
-    echo -e "  $PURPLE ▓$RESET $LIGHT welcome back, fries$RESET                       $PURPLE ▓$RESET"
+    echo -e "  $PURPLE ▓$RESET $LIGHT welcome back, $USER$RESET                       $PURPLE ▓$RESET"
     echo -e "  $DIM ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓$RESET"
     echo ""
     echo ""

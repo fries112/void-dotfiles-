@@ -52,7 +52,7 @@ cat > ~/.config/hypr/hyprpaper.conf << EOF
 splash = false
 
 wallpaper {
-    monitor = eDP-1
+    monitor = 
     path = $CURRENT
     fit_mode = cover
 }

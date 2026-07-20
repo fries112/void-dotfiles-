@@ -43,7 +43,7 @@
         "format": " {:%H:%M}",
         "format-alt": " {:%a, %b %d}",
         "interval": 30,
-        "on-click": "gnome-calendar"
+        "on-click": ""
     },
 
     "custom/void-power": {
@@ -70,7 +70,7 @@
         "format-plugged": " ",
         "format-icons": ["", "", "", "", ""],
         "tooltip-format": "{timeTo}\n{capacity}% - {power}W",
-        "on-click": "powerstat"
+        "on-click": ""
     },
 
     "pulseaudio": {

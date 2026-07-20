@@ -59,9 +59,8 @@ pacman -Rns --noconfirm \
     linux-firmware-realtek \
     linux-firmware-other \
     alsa-firmware \
-    sof-firmware \
     2>/dev/null || true
-echo "  Done. Keeping AMD/Radeon firmware only."
+echo "  Done. Keeping AMD/Radeon + SOF firmware."
 
 echo ""
 echo "[5/10] Removing CachyOS bloat..."

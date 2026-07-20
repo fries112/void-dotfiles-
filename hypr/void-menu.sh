@@ -4,7 +4,6 @@
 options=(
     "  Terminal"
     "  Files"
-    "  Browser"
     "  Wallpaper"
     "  Bluetooth"
     "  Network"
@@ -29,7 +28,6 @@ selected=$(printf '%s\n' "${options[@]}" | fuzzel \
 case "$selected" in
     *"Terminal"*) ghostty ;;
     *"Files"*) ghostty -e yazi ;;
-    *"Browser"*) chromium ;;
     *"Wallpaper"*) ~/.config/hypr/wallpaper-picker.sh ;;
     *"Bluetooth"*) blueman-manager ;;
     *"Network"*) nm-connection-editor ;;
