@@ -53,7 +53,7 @@ echo ""
 # STEP 1: Install packages
 # ============================================
 echo ""
-echo -e "${P}[1/7]${R} Installing packages..."
+echo -e "${P}[1/8]${R} Installing packages..."
 
 PACKAGES=(
     # Core
@@ -100,7 +100,7 @@ sudo pacman -S --needed --noconfirm "${PACKAGES[@]}"
 # STEP 2: Backup existing configs
 # ============================================
 echo ""
-echo -e "${P}[2/7]${R} Backing up existing configs..."
+echo -e "${P}[2/8]${R} Backing up existing configs..."
 
 BACKUP_DIR="$HOME/.config/void-backup-$(date +%Y%m%d_%H%M%S)"
 mkdir -p "$BACKUP_DIR"
@@ -123,7 +123,7 @@ echo -e "  ${D}Backup saved to: $BACKUP_DIR${R}"
 # STEP 3: Create directories
 # ============================================
 echo ""
-echo -e "${P}[3/7]${R} Creating directories..."
+echo -e "${P}[3/8]${R} Creating directories..."
 
 mkdir -p "$HOME/.config/hypr/backgrounds"
 mkdir -p "$HOME/.config/waybar"
@@ -148,7 +148,7 @@ fi
 # STEP 4: Copy Hyprland configs
 # ============================================
 echo ""
-echo -e "${P}[4/7]${R} Installing Hyprland configs..."
+echo -e "${P}[4/8]${R} Installing Hyprland configs..."
 
 cp "$DOTFILES_DIR/hypr/hyprland.conf"      "$HOME/.config/hypr/"
 cp "$DOTFILES_DIR/hypr/animations.conf"    "$HOME/.config/hypr/"
@@ -179,7 +179,7 @@ cp "$DOTFILES_DIR/hypr/backgrounds/"* "$HOME/.config/hypr/backgrounds/" 2>/dev/n
 # STEP 5: Copy app configs
 # ============================================
 echo ""
-echo -e "${P}[5/7]${R} Installing app configs..."
+echo -e "${P}[5/8]${R} Installing app configs..."
 
 cp "$DOTFILES_DIR/waybar/config.jsonc"  "$HOME/.config/waybar/"
 cp "$DOTFILES_DIR/waybar/style.css"     "$HOME/.config/waybar/"
@@ -198,7 +198,7 @@ cp "$DOTFILES_DIR/fish/functions/fish_greeting.fish" "$HOME/.config/fish/functio
 # STEP 6: Download wallpapers
 # ============================================
 echo ""
-echo -e "${P}[6/7]${R} Downloading wallpapers..."
+echo -e "${P}[6/8]${R} Downloading wallpapers..."
 
 WALLPAPER_URLS=(
     "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&q=80|dark-mountains.jpg"
@@ -230,7 +230,7 @@ fi
 # STEP 7: Set fish as default shell
 # ============================================
 echo ""
-echo -e "${P}[7/7]${R} Configuring shell..."
+echo -e "${P}[7/8]${R} Configuring shell..."
 
 if [ "$SHELL" != "/usr/bin/fish" ]; then
     echo -e "  ${D}→${R} Setting fish as default shell..."
@@ -238,6 +238,50 @@ if [ "$SHELL" != "/usr/bin/fish" ]; then
 else
     echo -e "  ${D}→${R} Fish is already default shell"
 fi
+
+# ============================================
+# STEP 8: Optional optimizations
+# ============================================
+echo ""
+echo -e "${P}[8/8]${R} Optional system optimizations..."
+echo ""
+echo -e "  ${PK}▸${R} ${LT}1${R}  Ultimate debloat (~8GB freed, removes caches/docs/nvidia firmware/CachyOS bloat)"
+echo -e "  ${PK}▸${R} ${LT}2${R}  ZRAM setup (compressed swap, great for low RAM)"
+echo -e "  ${PK}▸${R} ${LT}3${R}  Gaming optimize (gamemode + CPU performance governor)"
+echo -e "  ${PK}▸${R} ${LT}4${R}  KDE debloat (careful, keeps polkit agent + essential services)"
+echo -e "  ${PK}▸${R} ${LT}5${R}  KDE nuclear (removes ALL KDE/Plasma packages)"
+echo -e "  ${PK}▸${R} ${LT}6${R}  Apply ALL optimizations"
+echo -e "  ${PK}▸${R} ${LT}s${R}  Skip (just dotfiles, no optimizations)"
+echo ""
+read -p "Choose [1-6/s]: " opt_choice
+
+run_opt() {
+    local script="$1"
+    local desc="$2"
+    echo ""
+    echo -e "  ${PK}▸${R} Running ${LT}$desc${R}..."
+    if [ -f "$DOTFILES_DIR/scripts/$script" ]; then
+        sudo bash "$DOTFILES_DIR/scripts/$script"
+    else
+        echo -e "  ${D}✗${R} Script not found: scripts/$script"
+    fi
+}
+
+case "$opt_choice" in
+    1) run_opt "void-ultimate-debloat.sh" "ultimate debloat" ;;
+    2) run_opt "void-zram.sh" "ZRAM setup" ;;
+    3) run_opt "void-gaming-optimize.sh" "gaming optimize" ;;
+    4) run_opt "void-debloat.sh" "KDE debloat (careful)" ;;
+    5) run_opt "void-kde-debloat.sh" "KDE nuclear" ;;
+    6)
+        run_opt "void-ultimate-debloat.sh" "ultimate debloat"
+        run_opt "void-zram.sh" "ZRAM setup"
+        run_opt "void-gaming-optimize.sh" "gaming optimize"
+        run_opt "void-debloat.sh" "KDE debloat (careful)"
+        ;;
+    s|S) echo -e "  ${D}→${R} Skipped optimizations" ;;
+    *) echo -e "  ${D}→${R} Invalid choice, skipped" ;;
+esac
 
 # ============================================
 # Done!
