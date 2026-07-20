@@ -100,7 +100,7 @@ PACKAGES=(
     # Screen recording
     gpu-screen-recorder
     # Polkit
-    polkit-kde-authentication-agent
+    polkit-kde-agent
     # Fonts
     ttf-jetbrains-mono-nerd
     # Misc
