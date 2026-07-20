@@ -14,7 +14,16 @@ W='\033[38;2;226;232;240m'
 D='\033[38;2;74;85;104m'
 R='\033[0m'
 
-DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+# When piped from curl, $0 isn't a file — clone to temp dir
+if [ -f "$0" ]; then
+    DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+else
+    DOTFILES_DIR="/tmp/void-dotfiles"
+    echo -e "${PK}▸${R} Downloading dotfiles..."
+    rm -rf "$DOTFILES_DIR"
+    git clone --depth 1 https://github.com/fries112/void-dotfiles-.git "$DOTFILES_DIR" 2>/dev/null || \
+    git clone --depth 1 https://github.com/fries112/void-dotfiles- "$DOTFILES_DIR" 2>/dev/null
+fi
 
 echo -e "${P}"
 echo "    ██╗   ██╗██╗   ██╗██╗     ███╗   ██╗"
