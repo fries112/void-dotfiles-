@@ -107,6 +107,7 @@ PACKAGES=(
     socat jq
 )
 
+sudo pacman -Sy --noconfirm
 sudo pacman -S --needed --noconfirm "${PACKAGES[@]}"
 
 # ============================================
