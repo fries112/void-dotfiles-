@@ -26,7 +26,10 @@ if [ -f "$0" ]; then
 else
     DOTFILES_DIR="$(mktemp -d)"
     echo -e "${PK}▸${R} Downloading dotfiles..."
-    git clone --depth 1 https://github.com/fries112/void-dotfiles-.git "$DOTFILES_DIR"
+    if ! git clone --depth 1 https://github.com/fries112/void-dotfiles-.git "$DOTFILES_DIR"; then
+        echo -e "${PK}▸${R} Failed to clone dotfiles. Check your internet connection."
+        exit 1
+    fi
 fi
 
 echo -e "${P}"
@@ -107,8 +110,7 @@ PACKAGES=(
     socat jq
 )
 
-sudo pacman -Sy --noconfirm
-sudo pacman -S --needed --noconfirm "${PACKAGES[@]}"
+sudo pacman -Syu --needed --noconfirm "${PACKAGES[@]}"
 
 # ============================================
 # STEP 2: Backup existing configs
@@ -150,16 +152,17 @@ mkdir -p "$HOME/Pictures/wallpapers"
 mkdir -p "$HOME/Videos/Recordings"
 
 # Auto-detect monitor (only works if Hyprland is running)
+MONITORS_DETECTED=false
 if command -v hyprctl >/dev/null 2>&1 && hyprctl monitors -j >/dev/null 2>&1; then
     MONITOR=$(hyprctl monitors -j 2>/dev/null | jq -r '.[0].name' 2>/dev/null || echo "")
     if [ -n "$MONITOR" ] && [ "$MONITOR" != "null" ]; then
         echo "monitor = $MONITOR, preferred, auto, 1" > "$HOME/.config/hypr/monitors.conf"
         echo -e "  ${D}→${R} Detected monitor: $MONITOR"
-    else
-        echo -e "  ${D}→${R} No monitor detected, using auto config"
+        MONITORS_DETECTED=true
     fi
-else
-    echo -e "  ${D}→${R} Hyprland not running, using auto monitor config"
+fi
+if [ "$MONITORS_DETECTED" = false ]; then
+    echo -e "  ${D}→${R} Using auto monitor config"
 fi
 
 # ============================================
@@ -172,7 +175,9 @@ cp "$DOTFILES_DIR/hypr/hyprland.conf"      "$HOME/.config/hypr/"
 cp "$DOTFILES_DIR/hypr/animations.conf"    "$HOME/.config/hypr/"
 cp "$DOTFILES_DIR/hypr/keybinds.conf"      "$HOME/.config/hypr/"
 cp "$DOTFILES_DIR/hypr/windowrules.conf"   "$HOME/.config/hypr/"
-cp "$DOTFILES_DIR/hypr/monitors.conf"      "$HOME/.config/hypr/"
+if [ "$MONITORS_DETECTED" = false ]; then
+    cp "$DOTFILES_DIR/hypr/monitors.conf"      "$HOME/.config/hypr/"
+fi
 cp "$DOTFILES_DIR/hypr/input.conf"         "$HOME/.config/hypr/"
 cp "$DOTFILES_DIR/hypr/env.conf"           "$HOME/.config/hypr/"
 cp "$DOTFILES_DIR/hypr/hyprpaper.conf"     "$HOME/.config/hypr/"
@@ -252,7 +257,7 @@ echo -e "${P}[7/8]${R} Configuring shell..."
 
 if [ "$SHELL" != "/usr/bin/fish" ]; then
     echo -e "  ${D}→${R} Setting fish as default shell..."
-    chsh -s /usr/bin/fish
+    chsh -s /usr/bin/fish || echo -e "  ${D}→${R} Failed (try manually: chsh -s /usr/bin/fish)"
 else
     echo -e "  ${D}→${R} Fish is already default shell"
 fi
@@ -268,7 +273,7 @@ echo -e "  ${PK}▸${R} ${LT}2${R}  ZRAM setup (compressed swap, great for low R
 echo -e "  ${PK}▸${R} ${LT}3${R}  Gaming optimize (gamemode + CPU performance governor)"
 echo -e "  ${PK}▸${R} ${LT}4${R}  KDE debloat (careful, keeps polkit agent + essential services)"
 echo -e "  ${PK}▸${R} ${LT}5${R}  KDE nuclear (removes ALL KDE/Plasma packages)"
-echo -e "  ${PK}▸${R} ${LT}6${R}  Apply ALL optimizations"
+echo -e "  ${PK}▸${R} ${LT}6${R}  Apply options 1-4 (debloat + ZRAM + gaming + KDE cleanup)"
 echo -e "  ${PK}▸${R} ${LT}s${R}  Skip (just dotfiles, no optimizations)"
 echo ""
 read -p "Choose [1-6/s]: " opt_choice < /dev/tty
