@@ -1,5 +1,5 @@
 [global]
-font = JetBrainsMono Nerd Font 11
+font = CaskaydiaCove Nerd Font 11
 padding = 12
 margin = 10
 border-radius = 8
@@ -18,21 +18,21 @@ default-timeout = 4000
 ignore-transient = true
 
 [app-name]
-font = JetBrainsMono Nerd Font Bold 12
+font = CaskaydiaCove Nerd Font Bold 12
 color = #a855f7
 
 [body]
-font = JetBrainsMono Nerd Font 11
+font = CaskaydiaCove Nerd Font 11
 color = #c4b5fd
 
 [summary]
-font = JetBrainsMono Nerd Font Bold 11
+font = CaskaydiaCove Nerd Font Bold 11
 color = #e2e8f0
 
 [action]
-font = JetBrainsMono Nerd Font 11
+font = CaskaydiaCove Nerd Font 11
 color = #a855f7
 
 [close]
-font = JetBrainsMono Nerd Font 11
+font = CaskaydiaCove Nerd Font 11
 color = #f472b6

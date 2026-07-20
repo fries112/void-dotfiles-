@@ -111,7 +111,7 @@ PACKAGES=(
     # Flatpak (for Sober/Roblox)
     flatpak
     # Fonts
-    ttf-jetbrains-mono-nerd
+    ttf-cascadia-code-nerd
     # Cache cleanup
     pacman-contrib
     # Misc
